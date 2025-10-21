@@ -1,0 +1,25 @@
+# ===========================
+# Git Commit Message Template 
+# (for Study Repositories)
+# ===========================
+# Arguments:
+# - type:
+#    add       : Add a new note, chapter, section, or code
+#    update    : Improve existing content, add explanations or examples
+#    fix       : Correct typos, math errors or broken links
+#    refactor  : Reorganize structure, rename files/sections (no semantic change)
+#    remove    : Delete files or sections that are no longer needed
+#    config    : Add or modify configuration or meta files files
+#
+# - subject:
+#    A short summary (5–8 words recommended)
+# ===========================
+# Examples:
+# - add: expectation of random vector
+# - update: quadratic forms
+# - refactor: probability part
+# - config: add .gitmessage template
+# ===========================
+
+type: 
+subject: 
