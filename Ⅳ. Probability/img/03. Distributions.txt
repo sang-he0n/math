@@ -1,0 +1,121 @@
+# 01. 라이브러리 호출
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import bernoulli, binom, geom, nbinom, hypergeom, poisson
+from scipy.stats import uniform, expon, gamma, norm
+
+# 02. LaTeX 환경 설정
+os.environ["PATH"] = "/Library/TeX/texbin:" + os.environ["PATH"]
+plt.rcParams.update({
+    'text.usetex': True,
+    'font.family': 'serif',
+    'font.size': 14
+})
+
+# 03. 공통 스타일 설정 함수
+def style_axes(ax, x_vals, y_vals, is_discrete):
+    xmin = min(x_vals)
+    x_buffer = 0.5 if is_discrete else 0
+    ax.set_xlim(0 if xmin > 0.5 else xmin, max(x_vals) + x_buffer)
+    ax.set_ylim(0, max(y_vals) * 1.1)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['left'].set_linewidth(1)
+    ax.set_xlabel(r"$x$", fontsize=14, labelpad=5)
+    ax.set_ylabel(r"$P_X(x)$" if is_discrete else r"$f_X(x)$", fontsize=14, rotation=0, labelpad=20)
+    ax.grid(False)
+
+
+# 04. 통합 시각화 함수
+def plot_distribution(title, x_vals, y_vals, is_discrete=True):
+    fig, ax = plt.subplots()
+    if is_discrete:
+        ax.vlines(x_vals, 0, y_vals, colors='blue', linewidth=2)
+        ax.plot(x_vals, y_vals, 'o', color='blue')
+        for i in range(len(x_vals)\\big){}:
+            ax.hlines(y_vals[i], 0, x_vals[i], linestyles='dotted', colors='gray')
+    else:
+        ax.plot(x_vals, y_vals, color='blue', linewidth=2)
+        ax.fill_between(x_vals, y_vals, color='blue', alpha=0.05)
+    ax.set_title(title, fontsize=16)
+    style_axes(ax, x_vals, y_vals, is_discrete)
+    plt.tight_layout()
+    plt.show()
+
+# 05. 전체 분포 리스트 정의
+distributions = [
+    {
+        "title": r"$X \sim \mathrm{Bern}(p = 0.7)$",
+        "x_vals": [0, 1],
+        "y_vals": bernoulli.pmf([0, 1], 0.7),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{Bin}(n = 5, p = 0.5)$",
+        "x_vals": np.arange(0, 6),
+        "y_vals": binom.pmf(np.arange(0, 6), 5, 0.5),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{Geom}(p = 0.3)$",
+        "x_vals": np.arange(1, 10),
+        "y_vals": geom.pmf(np.arange(1, 10), 0.3),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{NegBin}(r = 3, p = 0.4)$",
+        "x_vals": np.arange(0, 15),
+        "y_vals": nbinom.pmf(np.arange(0, 15), 3, 0.4),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{Hypergeom}(M = 20, n = 7, N = 5)$",
+        "x_vals": np.arange(0, 6),
+        "y_vals": hypergeom.pmf(np.arange(0, 6), 20, 7, 5),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{Pois}(\lambda = 3.0)$",
+        "x_vals": np.arange(0, 15),
+        "y_vals": poisson.pmf(np.arange(0, 15), 3.0),
+        "type": "discrete"
+    },
+    {
+        "title": r"$X \sim \mathrm{U}(a = 0, b = 5)$",
+        "x_vals": np.linspace(0, 5, 500),
+        "y_vals": uniform.pdf(np.linspace(0, 5, 500), loc=0, scale=5),
+        "type": "continuous"
+    },
+    {
+        "title": r"$X \sim \mathrm{Exp}(\lambda = 1.5)$",
+        "x_vals": np.linspace(0, 10, 500),
+        "y_vals": expon.pdf(np.linspace(0, 10, 500), scale=1/1.5),
+        "type": "continuous"
+    },
+    {
+        "title": r"$X \sim \mathrm{Gamma}(\alpha = 3, \lambda = 0.5)$",
+        "x_vals": np.linspace(0, 20, 500),
+        "y_vals": gamma.pdf(np.linspace(0, 20, 500), a=3, scale=2),
+        "type": "continuous"
+    },
+    {
+        "title": r"$X \sim \mathrm{N}(\mu = 0, \sigma^2 = 1)$",
+        "x_vals": np.linspace(-4, 4, 500),
+        "y_vals": norm.pdf(np.linspace(-4, 4, 500)\\big){},
+        "type": "continuous"
+    },
+    {
+        "title": r"$X \sim \mathrm{N}(\mu = 5, \sigma^2 = 4)$",
+        "x_vals": np.linspace(-5, 15, 500),
+        "y_vals": norm.pdf(np.linspace(-5, 15, 500), loc=5, scale=2),
+        "type": "continuous"
+    }
+]
+
+# 06. 반복 시각화
+for dist in distributions:
+    plot_distribution(dist["title"], dist["x_vals"], dist["y_vals"], is_discrete=(dist["type"] == "discrete")\\big){}

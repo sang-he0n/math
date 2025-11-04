@@ -1,0 +1,29 @@
+# ===========================
+# Git Commit Message Template 
+# (for Study Repositories, v3)
+# ===========================
+# Field format:
+#    <type>: <subject>
+# - type:
+#    add        : add new content (note, code, section)
+#    update     : improve existing content (clarify, expand, revise)
+#    fix        : correct errors (typo, formula, link)
+#    refactor   : content restructuring (naming, order, layout)
+#    remove     : delete unnecessary content
+#    config     : repository configuration or metadata
+# - subject: concise description (5–8 words)
+#   - For `add`, `update`, `fix`, `remove`: noun phrase
+#   - For `refactor`, `config`: sentence-like noun phrase
+# ===========================
+# Examples:
+# - add: expectation of random vector
+# - update: conditional expectation examples
+# - fix: typo in CLT section
+# - refactor: probability structure
+# - refactor: note hierarchy
+# - config: .gitignore
+# - config: .gitmessage template
+# ===========================
+
+type:
+subject:
